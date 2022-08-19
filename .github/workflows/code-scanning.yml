@@ -21,7 +21,7 @@ on:
   #  - cron: '30 5 * * 5'
 
 env:
-   CODEQL_EXTRACTOR_GO_BUILD_TRACING: on
+  CODEQL_EXTRACTOR_GO_BUILD_TRACING: on
 
 jobs:
   analyze:
@@ -44,7 +44,13 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.18.x
-
+        
+    # Limit GOGC
+    - name: setup env
+      shell: bash
+      run: |
+        echo "GOGC=50" >> $GITHUB_ENV
+        
     - name: Checkout repository
       uses: actions/checkout@v3
 
